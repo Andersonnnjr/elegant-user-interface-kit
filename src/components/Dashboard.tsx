@@ -3,30 +3,29 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import ProfileBox from './ProfileBox';
-
-interface ProfileData {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-}
+import { ProfileData } from '../types';
+import { PLACEHOLDER_USER } from '../utils/constants';
 
 const Dashboard: React.FC = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState<string>('');
   const [profileData, setProfileData] = useState<ProfileData>({
-    name: 'João Silva',
-    email: 'joao.silva@example.com',
-    phone: '(11) 99999-9999',
-    address: 'Rua das Flores, 123'
+    name: PLACEHOLDER_USER.name,
+    email: PLACEHOLDER_USER.email,
+    phone: PLACEHOLDER_USER.phone,
+    address: PLACEHOLDER_USER.address
   });
 
-  const handleProfileSave = (data: ProfileData) => {
+  const handleProfileSave = (data: ProfileData): void => {
     setProfileData(data);
     console.log('Perfil salvo:', data);
   };
 
-  const handleProfileCancel = () => {
+  const handleProfileCancel = (): void => {
     console.log('Edição cancelada');
+  };
+
+  const handleSearchChange = (value: string): void => {
+    setSearchValue(value);
   };
 
   return (
@@ -37,7 +36,7 @@ const Dashboard: React.FC = () => {
         <div className="p-8 bg-white min-h-screen">
           <Topbar 
             searchValue={searchValue}
-            onSearchChange={setSearchValue}
+            onSearchChange={handleSearchChange}
           />
           
           <div className="bg-white p-8 rounded-[60px] font-bold shadow-[0_6px_20px_0_rgba(0,0,0,0.19)] mt-5">
